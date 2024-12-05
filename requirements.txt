@@ -1,9 +1,10 @@
-streamlit
+streamlit==1.22
 numpy
 pandas
 matplotlib
 seaborn
 scikit-learn
+Cython
 underthesea
 pyvi
 wordcloud
