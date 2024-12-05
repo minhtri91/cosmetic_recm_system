@@ -374,13 +374,13 @@ if info_options == 'Hệ thống gợi ý sản phẩm':
             selected_product = st.selectbox(
                 'Chọn mã khách hàng',
                 options=product_options,
-                format_func=lambda x: x[1]  # Hiển thị tên sản phẩm
+                format_func=lambda x: x[1]  # Hiển thị userId
             )
             col1, col2 = st.columns(2)
             with col1:
                 stars = st.number_input("Số sao sản phẩm không bé hơn:", value=5, min_value=1, max_value=5)
             with col2:
-                top_filter = st.number_input("Số lượng sản phẩm gợi ý", min_value=1, step=1)
+                top_filter = st.number_input("Số lượng sản phẩm gợi ý", min_value=1, step=1, value=5)
             # Display the selected product
             user_id = selected_product[1] # type: ignore
             name = selected_product[0] # type: ignore
@@ -390,9 +390,14 @@ if info_options == 'Hệ thống gợi ý sản phẩm':
             st.session_state.selected_ma_khach_hang = selected_product[1] # type: ignore
             data_recommendation = data[['ma_khach_hang', 'ho_ten', 'ma_san_pham', 'ten_san_pham', 'mo_ta', 'mo_ta_special_words_remove_stopword', 'so_sao', 'diem_trung_binh', 'gia_ban', 'ngay_binh_luan']]
             # Gợi ý sản phẩm
-            if 'recommendation' and 'history' and 'user_name' and 'user_id' not in st.session_state:
-                st.session_state['history'] = None
+            if 'recommendation' not in st.session_state:
                 st.session_state['recommendation'] = None
+            if 'history' not in st.session_state:
+                st.session_state['history'] = None
+            if 'user_name' not in st.session_state:
+                st.session_state['user_name'] = None
+            if 'user_id' not in st.session_state:
+                st.session_state['user_id'] = None
             if st.button("Gợi Ý Sản Phẩm"):
                 with st.spinner("Đang xử lý..."):
                     start_time = time.time()
@@ -434,13 +439,14 @@ if info_options == 'Hệ thống gợi ý sản phẩm':
                 user_recommend = st.session_state['recommendation']
                 st.write(f'Hệ thống gợi ý các sản phẩm này cho {last_username}({last_userId}).')
                 # Tạo một tuple cho mỗi sản phẩm, trong đó phần tử đầu là tên và phần tử thứ hai là ID
-                product_options = [(row['ten_san_pham'], row['ma_san_pham']) for index, row in user_recommend.iterrows()]
-                # Tạo một dropdown với options là các tuple này
-                selected_product = st.selectbox(
-                    'Chọn xem thông tin sản phẩm',
-                    options=product_options,
-                    format_func=lambda x: x[0]  # Hiển thị tên sản phẩm
-                )
+                if user_recommend is not None:
+                    product_options = [(row['ten_san_pham'], row['ma_san_pham']) for index, row in user_recommend.iterrows()]
+                    # Tạo một dropdown với options là các tuple này
+                    selected_product = st.selectbox(
+                        'Chọn xem thông tin sản phẩm',
+                        options=product_options,
+                        format_func=lambda x: x[0]  # Hiển thị tên sản phẩm
+                    )
 
                 # Kiểm tra xem 'selected_ma_san_pham' đã có trong session_state hay chưa
                 if 'selected_ma_san_pham' not in st.session_state:
@@ -449,7 +455,7 @@ if info_options == 'Hệ thống gợi ý sản phẩm':
                 # Cập nhật session_state dựa trên lựa chọn hiện tại
                 st.session_state.selected_ma_san_pham = selected_product[1] # type: ignore
 
-                if st.session_state.selected_ma_san_pham:
+                if st.session_state.selected_ma_san_pham and user_recommend is not None:
                     st.write(f'ma_san_pham: {st.session_state.selected_ma_san_pham}')
                     # Hiển thị thông tin sản phẩm được chọn
                     selected_product = data[data['ma_san_pham'] == st.session_state.selected_ma_san_pham].sort_values(by='ngay_binh_luan', ascending=False)
