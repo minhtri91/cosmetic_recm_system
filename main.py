@@ -68,7 +68,7 @@ st.sidebar.write(' :boy: Võ Huy Quốc')
 st.sidebar.write(' :boy: Phan Trần Minh Khuê')
 st.sidebar.write('-'*3)
 st.sidebar.write('#### :clock830: Thời gian báo cáo:')
-st.sidebar.write(':spiral_calendar_pad: 14/12/2024')
+st.sidebar.write(':spiral_calendar_pad: 08/12/2024')
 
 ## Kiểm tra dữ liệu đã upload trước đó
 if 'uploaded_data' not in st.session_state:
