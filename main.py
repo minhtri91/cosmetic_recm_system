@@ -88,6 +88,13 @@ if info_options == 'Tổng quan về hệ thống':
             st.write('- Giả sử rằng HASAKI.VN chưa triển khai hệ thống Recommender System để giúp đề xuất sản phẩm phù hợp với khách hàng/users.')
     with general_info_tabs[1]:
         st.header('Quy trình triển khai hệ thống')
+        st.header('Giải pháp đề xuất')
+        st.write('- Recommendation System: là hệ thống đề xuất/khuyến nghị được thiết kế để tự động đưa ra gợi ý cho người dùng về các mục hoặc thông tin mà họ có thể quan tâm. Sự đề xuất này dựa trên việc phân tích và đánh giá dữ liệu lịch sử của người dùng, như lịch sử mua sắm, đánh giá, hay hành vi trực tuyến.')
+        st.write('- Recommendation System sử dụng các thuật toán và mô hình học máy để tối ưu hóa quá trình đề xuất, tạo ra trải nghiệm cá nhân hóa cho từng người dùng.')
+        st.write('''Lợi ích của Recommendation System:
+- Tăng hiệu suất bán hàng: hệ thống đề xuất giúp tăng cơ hội bán hàng bằng cách đưa ra các sản phẩm phù hợp với sở thích và nhu cầu của người dùng.
+- Cải thiện trải nghiệm người dùng: Người dùng nhận được đề xuất cá nhân hóa, giúp họ khám phá nội dung mới một cách thuận lợi.
+- Giữ được sự tương tác lâu hơn: Cung cấp nội dung hoặc sản phẩm phù hợp có thể giữ chân người dùng và thúc đẩy tương tác liên tục trên các nền tảng trực tuyến.''')
         st.image('img/Gioi_thieu_proj2.PNG', use_column_width=True)
 
 ## Xem dữ liệu đã upload lên, đưa dữ liệu vào session để sử dụng lại được
