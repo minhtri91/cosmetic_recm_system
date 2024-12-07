@@ -228,7 +228,7 @@ def surprise_recommendation(input_df=pd.DataFrame(), userId_col_name: str = '', 
         history=''
     
     # Lọc kết quả theo ngưỡng đánh giá
-    recommend = df_score[df_score['EstimateScore'] >= rate_threshold].head(top_recommend).reset_index(drop=True)
+    recommend = df_score[df_score['rating'] >= rate_threshold].head(top_recommend).reset_index(drop=True)
     recommend.rename(columns={'userId':userId_col_name, 
                             'productId':productId_col_name, 
                             'product_name':product_name_col_name,
